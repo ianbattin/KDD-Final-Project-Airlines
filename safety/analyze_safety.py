@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import sys
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 import pylab
@@ -20,9 +21,10 @@ def read_safety(path):
     df2["fatalities"] = df2["fatalities"] / df2["fatalities"].max()
     return df2
 
-def cluster_airlines(df, plot):
-    df = read_safety("./airline-safety.csv")
+def cluster_airlines(path, plot):
+    df = read_safety(path)
     X = df[["incidents", "fatalities"]]
+    print(df)
     y_pred = KMeans(n_clusters=5).fit_predict(X)
     if plot:
         plt.style.use("ggplot")
@@ -35,7 +37,6 @@ def cluster_airlines(df, plot):
     return output
 
 def main():
-    df = read_safety("./airline-safety.csv")
-    print(cluster_airlines(df, True))
+    print(cluster_airlines(sys.argv[1], True))
 
 main()
