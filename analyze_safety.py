@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+import pylab
 
 def read_safety(path):
     df = pd.read_csv(path)
@@ -22,12 +23,13 @@ def read_safety(path):
 def cluster_airlines(df, plot):
     df = read_safety("./airline-safety.csv")
     X = df[["incidents", "fatalities"]]
-    y_pred = KMeans(n_clusters=4).fit_predict(X)
+    y_pred = KMeans(n_clusters=5).fit_predict(X)
     if plot:
+        plt.style.use("ggplot")
         plt.title("Normalized Airline Safety 1984 - 2014")
         plt.xlabel("incidents")
         plt.ylabel("fatalities")
-        plt.scatter(df["incidents"], df["fatalities"], c=y_pred, alpha=.5)
+        plt.scatter(df["incidents"], df["fatalities"], c=y_pred, alpha=.5, cmap="Dark2")
         plt.show()
     output = [(df["airline"][i], n) for i, n in enumerate(y_pred)]
     return output
