@@ -11,7 +11,7 @@ def graph_airlines_vs_delays(file_path):
 	plt.xlabel('Airline IATA Code')
 	plt.ylabel('Number of Delays')
 	plt.title('Airline Delays in 2008')
-	plt.show()
+	plt.savefig('airlines_vs_delays.png')
 
 def main(file_path):
 	graph_airlines_vs_delays(file_path)
