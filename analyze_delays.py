@@ -16,14 +16,22 @@ def graph_airlines_vs_delays(file_path):
 	delayCounts = delays[columns].groupby(columns[0]).sum()
 	delayCounts = delayCounts.assign(NumDelays = counts)
 	delayCounts = delayCounts.sort_values('NumDelays')
-	delayCounts['AverageDelay'] = delayCounts[columns[1:]].sum(axis=1) / delayCounts['NumDelays'] * 75000
+	delayCounts['AverageDelay'] = delayCounts[columns[1:]].sum(axis=1) / delayCounts['NumDelays']
 
 	plt.style.use('ggplot')
-	print(delayCounts)
-	delayCounts[columns[1:] + ['AverageDelay']].plot(kind = 'bar')
+	delayCounts[columns[1:]].plot(kind = 'bar')
 	plt.xlabel('Airline IATA Codes (sorted by number of delays)')
 	plt.ylabel('Total Minutes')
 	plt.title('Airline Delays in 2008')
+	plt.show()
+
+	graph_average_delays(delayCounts)
+
+def graph_average_delays(delays):
+	delays[['AverageDelay']].plot(kind = 'bar')
+	plt.xlabel('Airline Code')
+	plt.ylabel('Average delay time')
+	plt.title('Airline vs Average Delay Time')
 	plt.show()
 
 def main(file_path):
