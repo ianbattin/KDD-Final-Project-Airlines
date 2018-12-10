@@ -70,23 +70,21 @@ def graph_reason(data, scores):
   
   fix, ax = plt.subplots()
   index = np.arange(n_groups)
-  bar_width = 0.07
+  bar_width = 0.1
 
   badFlight = plt.bar(index, [tup[1]["Bad Flight"] for tup in sorted_by_score], bar_width, align='center', color='red', label="Bad Flight")
-  centTell = plt.bar(index + bar_width, [tup[1]["Can't Tell"] for tup in sorted_by_score], bar_width, align='center', color='orange', label="Can't Tell")
-  lateFlight = plt.bar(index + bar_width * 2, [tup[1]["Late Flight"] for tup in sorted_by_score], bar_width, align='center', color='yellow', label="Late Flight")
-  customerService = plt.bar(index + bar_width * 3, [tup[1]["Customer Service Issue"] for tup in sorted_by_score], bar_width, align='center', color='green', label="Customer Service Issue")
-  booking = plt.bar(index + bar_width * 4, [tup[1]["Flight Booking Problems"] for tup in sorted_by_score], bar_width, align='center', color='cyan', label="Flight Booking Problems")
-  lostLuggage = plt.bar(index + bar_width * 5, [tup[1]["Lost Luggage"] for tup in sorted_by_score], bar_width, align='center', color='blue', label="Lost Luggage")
-  flightAttendant = plt.bar(index + bar_width * 6, [tup[1]["Flight Attendant"] for tup in sorted_by_score], bar_width, align='center', color='purple', label="Flight Attendant")
-  cancelled = plt.bar(index + bar_width * 7, [tup[1]["Cancelled Flight"] for tup in sorted_by_score], bar_width, align='center', color='pink', label="Cancelled Flight")
-  damaged = plt.bar(index + bar_width * 8, [tup[1]["Damaged Luggage"] for tup in sorted_by_score], bar_width, align='center', color='brown', label="Damaged Luggage")
-  cancelled = plt.bar(index + bar_width * 9, [tup[1]["longlines"] for tup in sorted_by_score], bar_width, align='center', color='black', label="Long Lines")
+  lateFlight = plt.bar(index + bar_width, [tup[1]["Late Flight"] for tup in sorted_by_score], bar_width, align='center', color='yellow', label="Late Flight")
+  customerService = plt.bar(index + bar_width * 2, [tup[1]["Customer Service Issue"] for tup in sorted_by_score], bar_width, align='center', color='green', label="Customer Service Issue")
+  booking = plt.bar(index + bar_width * 3, [tup[1]["Flight Booking Problems"] for tup in sorted_by_score], bar_width, align='center', color='cyan', label="Flight Booking Problems")
+  lostLuggage = plt.bar(index + bar_width * 4, [tup[1]["Lost Luggage"] for tup in sorted_by_score], bar_width, align='center', color='blue', label="Lost Luggage")
+  cancelled = plt.bar(index + bar_width * 5, [tup[1]["Cancelled Flight"] for tup in sorted_by_score], bar_width, align='center', color='pink', label="Cancelled Flight")
+  damaged = plt.bar(index + bar_width * 6, [tup[1]["Damaged Luggage"] for tup in sorted_by_score], bar_width, align='center', color='brown', label="Damaged Luggage")
+  cancelled = plt.bar(index + bar_width * 7, [tup[1]["longlines"] for tup in sorted_by_score], bar_width, align='center', color='black', label="Long Lines")
 
   plt.xlabel("Airline")
   plt.ylabel("# of Tweets w/ Reason")
   plt.title("Negative Reason Count per Airline")
-  plt.xticks(index + bar_width * 4, [pair[0] for pair in sorted_by_score])
+  plt.xticks(index + bar_width * 3.5, [pair[0] for pair in sorted_by_score])
   plt.legend()
   plt.show()
 
