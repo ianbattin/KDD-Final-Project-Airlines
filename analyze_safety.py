@@ -14,7 +14,7 @@ def read_safety(path):
     df["fatal_accidents_00_14"] = df["fatal_accidents_00_14"] / df["avail_seat_km_per_week"] * 10000000
     df["fatalities_00_14"] = df["fatalities_00_14"] / df["avail_seat_km_per_week"] * 10000000
     df2 = pd.DataFrame()
-    df2["airline"] = df["airline"]
+    df2["airline"] = df["airline"].str.replace("*", "")
     df2["incidents"] = df["incidents_85_99"] + df["incidents_00_14"]
     df2["fatalities"] = df["fatalities_85_99"] + df["fatalities_00_14"]
     df2["incidents"] = df2["incidents"] / df2["incidents"].max()
@@ -24,7 +24,6 @@ def read_safety(path):
 def cluster_airlines(path, plot):
     df = read_safety(path)
     X = df[["incidents", "fatalities"]]
-    print(df)
     y_pred = KMeans(n_clusters=5).fit_predict(X)
     if plot:
         plt.style.use("ggplot")
@@ -33,10 +32,11 @@ def cluster_airlines(path, plot):
         plt.ylabel("fatalities")
         plt.scatter(df["incidents"], df["fatalities"], c=y_pred, alpha=.5, cmap="Dark2")
         plt.show()
-    output = [(df["airline"][i], n) for i, n in enumerate(y_pred)]
-    return output
+    df["label"] = y_pred
+    return df
 
 def main():
     print(cluster_airlines(sys.argv[1], True))
 
-main()
+if __name__ == "__main__":
+    main()

@@ -1,9 +1,11 @@
-import pandas
+import pandas as pd
 import sys
 import operator
 import matplotlib.pyplot as plt
 import numpy as np
 from collections import defaultdict
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
 
 def count_tweet_sentiment(dataset):
   airline_to_sentiment = dict()
@@ -90,10 +92,23 @@ def graph_reason(data, scores):
   plt.legend()
   plt.show()
 
+def classify_tweets(path):
+  df = pd.read_csv(path)
+  df_reason = pd.get_dummies(df["negativereason"])
+  df_sent = pd.get_dummies(df["airline_sentiment"])
+  df1 = df_reason.merge(df_sent, left_index=True, right_index=True)
+  df1["airline"] = df["airline"]
+  clf = RandomForestClassifier(n_estimators=100)
+  y = df1["airline"]
+  X = df1[["Bad Flight", "Can't Tell", "Cancelled Flight", "Customer Service Issue", "Damaged Luggage", "Flight Attendant Complaints", "Flight Booking Problems", "Late Flight", "Lost Luggage", "longlines", "negative", "neutral", "positive"]]
+  print(cross_val_score(clf, X, y, cv=40, scoring='accuracy')) 
+
 def main():
   plt.style.use('ggplot')
   dataset_file = sys.argv[1]
-  dataset = pandas.read_csv(dataset_file, usecols=["airline_sentiment", "airline", "negativereason"])
+  if sys.argv[2] == "-class":
+      classify_tweets(dataset_file)
+  dataset = pd.read_csv(dataset_file, usecols=["airline_sentiment", "airline", "negativereason"])
   airline_to_sentiment, airline_to_score, airline_to_reason = count_tweet_sentiment(dataset)
 
   graph_sentiment(airline_to_sentiment, airline_to_score)

@@ -28,4 +28,5 @@ def main():
     plot_fleets(df)
     print(df[["Parent Airline", "Total Cost", "Average Age"]])
 
-main()
+if __name__ == "__main__":
+    main()
