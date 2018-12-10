@@ -4,6 +4,16 @@ Ian Battin: ibattin@calpoly.edu
 Derek Lance: dwalance@gmail.com
 Matt Sewall: matt.sewall@gmail.com
 
+## Datasets:
+
+Airline Safety: https://www.kaggle.com/fivethirtyeight/fivethirtyeight-airline-safety-dataset#airline-safety.csv
+
+Airline Delays: https://www.kaggle.com/giovamata/airlinedelaycauses#DelayedFlights.csv
+
+Airline Tweets: https://www.kaggle.com/welkin10/airline-sentiment
+
+Airline Fleets: https://www.kaggle.com/traceyvanp/airlinefleet
+
 ## How to Run
 
 Download required libraries:
